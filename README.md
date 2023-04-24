@@ -1,17 +1,17 @@
-README.md
+# Terraform Practice Repo
 
-## Prepare in advance ##
+## Env ##
 
-1. install terraform
+1. install [Terraform](https://developer.hashicorp.com/terraform/downloads)
 2. install aws cli (required for `try-aws` folder)
 
-## [AWS] prepare "default" profile
+### Others
 
-For `try-aws` practice, we need a aws "default" profile in local env.
+For aws related practices, we need a aws "default" profile in local env.
 
-0. install aws cli tool
-1. touch and edit ~/.aws/credentials
-2. fill in these configs
+1.  prepare "default" profile
+2. touch and edit ~/.aws/credentials
+3. fill in these configs, like:
 
 ```
 [default]
@@ -20,18 +20,14 @@ For `try-aws` practice, we need a aws "default" profile in local env.
   # and run command: "aws configure" in terminal
 ```
 
-3. exec `aws credentials`
+4. exec `aws credentials`
 
-### create key pair for aws instance
+5. create key pair for aws instance (**AWS only supports RSA keypairs, it does not support DSA, ECDSA or Ed25519 keypairs**)
 
-**AWS only supports RSA keypairs, it does not support DSA, ECDSA or Ed25519 keypairs.**
-
-* output_keyfile is just like the value in variable.tf (variable aws_intance_public_key)
-
-
-```
-ssh-keygen -f <output_keyfile>
-```
+  ```bash
+  ssh-keygen -f <output_keyfile>
+  # output_keyfile is just like the value in variable.tf (variable aws_intance_public_key)
+  ```
 
 ## Common commands ##
 
@@ -46,12 +42,15 @@ ssh-keygen -f <output_keyfile>
 - `terraform show` view current state in remote.
 - `terraform apply -destroy` destroy all remove objects.
 
-
 ## Diagrams ##
 
-1. diagram of try-aws practice
+1. Diagram of try-aws practice
 
-![try_aws](./diagrams/try-aws.png)
+  * Serve a web page in ec2
+  * allow public access (IGW + Security group: 80 port and 22 port)
+  * 1 VPC, 1 public subnet, 1 custom routing table.
+
+  ![try_aws](./diagrams/try-aws.png)
 
 ### Troubleshooting
 
