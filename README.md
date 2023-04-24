@@ -47,7 +47,13 @@ ssh-keygen -f <output_keyfile>
 - `terraform apply -destroy` destroy all remove objects.
 
 
-### troubleshooting
+## Diagrams ##
+
+1. diagram of try-aws practice
+
+![try_aws](./diagrams/try-aws.png)
+
+### Troubleshooting
 
 1. issue1
 
