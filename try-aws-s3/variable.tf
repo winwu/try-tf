@@ -4,6 +4,7 @@ variable "aws_region" {
 }
 
 variable "bucket_name" {
-  type    = string
-  default = "wwu-developer-test-bucket"
+  description = "bucket name must be unique"
+  type        = string
+  default     = "wwu-developer-test-bucket"
 }

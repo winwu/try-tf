@@ -1,7 +1,8 @@
 # Terraform Practice Repo
 
 * `try-aws`: launch aws service with one ec2 with one vpc, one subnet, one igw and one routing table, and serve a web page by Nginx
-* `try-aws-alb`: learn from https://developer.hashicorp.com/terraform/tutorials/networking/blue-green-canary-tests-deployments
+* `try-aws-s2`: create a s3 bucket and 2 object inside its bucket.
+* `try-aws-alb`: (WIP)learn from https://developer.hashicorp.com/terraform/tutorials/networking/blue-green-canary-tests-deployments
 * `try-docker`: create a container and an image with nginx installed and allow localhost 80 to access
 
 ## Env ##
@@ -13,6 +14,7 @@
 
 For aws related practices, we need a aws "default" profile in local env.
 
+0. create a user in IAM, the uesr should has related permissions, like: AmazonEC2FullAccess, AmazonS3FullAccess
 1. prepare "default" profile
 2. touch and edit ~/.aws/credentials
 3. fill in these configs, like:
