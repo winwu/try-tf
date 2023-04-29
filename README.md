@@ -1,7 +1,7 @@
 # Terraform Practice Repo
 
 * `try-aws`: launch aws service with one ec2 with one vpc, one subnet, one igw and one routing table, and serve a web page by Nginx
-* `try-aws-s2`: create a s3 bucket and 2 object inside its bucket.
+* `try-aws-s3`: create a s3 bucket and 2 objects inside its bucket.
 * `try-aws-alb`: (WIP)learn from https://developer.hashicorp.com/terraform/tutorials/networking/blue-green-canary-tests-deployments
 * `try-docker`: create a container and an image with nginx installed and allow localhost 80 to access
 
