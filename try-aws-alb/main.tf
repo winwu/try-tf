@@ -6,26 +6,23 @@ provider "aws" {
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = "alb-vpc"
+  name = "load-balance-vpc"
   cidr = "10.0.0.0/16"
 
-  azs             = var.aws_azs
-  private_subnets = var.private_subnet_cidrs
-  public_subnets  = var.public_subnet_cidrs
+  azs             = var.aws_azs_config.zones
+  private_subnets = var.aws_azs_config.private_subnets
+  public_subnets  = var.aws_azs_config.public_subnets
 
   # do not turn on both unless it's necessary... 
-  # it will cost $$$
-  # @TODO
   enable_nat_gateway = false
   enable_vpn_gateway = false
 
   tags = {
-    is_practice = "true"
-    Environment = "dev"
+    "try-aws-alb" = "dev"
   }
 }
 
-module "web_sg" {
+module "web_security_group" {
   source = "terraform-aws-modules/security-group/aws//modules/http-80"
 
   name        = "web-sg"
@@ -35,7 +32,7 @@ module "web_sg" {
   ingress_cidr_blocks = ["10.0.0.0/16"]
 }
 
-module "lb_sg" {
+module "lb_security_group" {
   source = "terraform-aws-modules/security-group/aws//modules/http-80"
 
   name        = "lb-sg"
@@ -56,7 +53,7 @@ resource "aws_lb" "app" {
   internal           = false
   load_balancer_type = "application"
   subnets            = [module.vpc.public_subnets]
-  security_groups    = [module.lb_sg.security_groups_id]
+  security_groups    = [module.lb_security_group.security_group_id]
 }
 
 resource "aws_lb_listener" "app" {

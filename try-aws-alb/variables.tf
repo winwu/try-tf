@@ -3,30 +3,6 @@ variable "aws_region" {
   default = "us-west-1"
 }
 
-variable "aws_azs" {
-  type = list(string)
-  # values = ["us-west-1b"]
-  values = ["us-west-1b", "us-west-1c"]
-}
-
-variable "public_subnet_cidrs" {
-  description = "available cidr blocks for public subnets"
-  type        = list(string)
-  default = [
-    "10.0.1.0/24", // 251 IPs
-    "10.0.2.0/24", // 251 IPs
-  ]
-}
-
-variable "private_subnet_cidrs" {
-  description = "available cidr blocks for private subnets"
-  type        = list(string)
-  default = [
-    "10.0.101.0/24", // 251 IPs
-    "10.0.102.0/24", // 251 IPs
-  ]
-}
-
 variable "enable_blue_env" {
   type    = bool
   default = true
@@ -35,4 +11,25 @@ variable "enable_blue_env" {
 variable "blue_instance_count" {
   type    = number
   default = 2
+}
+
+variable "aws_azs_config" {
+  type = object({
+    zones           = list(string)
+    private_subnets = list(string)
+    public_subnets  = list(string)
+  })
+  default = {
+    zones = ["us-west-1b", "us-west-1c"],
+    # "available cidr blocks for public subnets"
+    public_subnets = [
+      "10.0.1.0/24", // 251 IPs
+      "10.0.2.0/24", // 251 IPs
+    ]
+    # available cidr blocks for private subnets
+    private_subnets = [
+      "10.0.101.0/24", // 251 IPs
+      "10.0.102.0/24", // 251 IPs
+    ]
+  }
 }
