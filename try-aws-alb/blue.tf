@@ -14,3 +14,7 @@ resource "aws_instance" "blue" {
     Name = "blue of ${count.index}"
   }
 }
+
+output "public_ip" {
+  value = aws_instance.blue[*].public_ip
+}

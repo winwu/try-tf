@@ -51,3 +51,5 @@ resource "aws_s3_object" "object" {
     aws_s3_bucket.example-bucket
   ]
 }
+
+// https://hands-on.cloud/terraform-s3-examples/
