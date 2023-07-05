@@ -1,9 +1,16 @@
 # Terraform Practice Repo
 
+Practice Topics:
+
 * `try-aws`: launch aws service with one ec2 with one vpc, one subnet, one igw and one routing table, and serve a web page by Nginx
 * `try-aws-s3`: create a s3 bucket and 2 objects inside its bucket.
-* `try-aws-alb`: (WIP)learn from https://developer.hashicorp.com/terraform/tutorials/networking/blue-green-canary-tests-deployments
-* `try-docker`: create a container and an image with nginx installed and allow localhost 80 to access
+* `try-aws-alb`: (unfinished) learn from https://developer.hashicorp.com/terraform/tutorials/networking/blue-green-canary-tests-deployments
+* `try-docker`: create a container and an image with nginx installed and allow localhost 80 to access it.
+  - launch local "Docker Desktop"
+  - `terraform init` -> `terraform apply` (or terraform apply -auto-approve)
+  - visit http://localhost:8000/
+  - `terraform apply -destroy`
+
 
 ## Env ##
 
@@ -66,46 +73,37 @@ ssh ubuntu@$(terraform output -raw public_ip) -i ./us-west-1-region-key-pair
 - `terraform output`
 
 
-## Diagrams ##
+## Diagram of try-aws practice ##
 
-1. Diagram of try-aws practice
 
-  * Serve a web page in ec2
-  * allow public access (IGW + Security group: 80 port and 22 port)
-  * 1 VPC, 1 public subnet, 1 custom routing table.
+* Serve a web page in ec2
+* allow public access (IGW + Security group: 80 port and 22 port)
+* 1 VPC, 1 public subnet, 1 custom routing table.
 
-  ![try_aws](./diagrams/try-aws.png)
+![try_aws](./diagrams/try-aws.png)
 
 ### Troubleshooting
 
 1. issue1
 
-Q:
+  - Q: "Error: creating EC2 Instance: MissingInput: No subnets found for the default VPC 'vpc-xxxxx'. Please specify a subnet."
 
-```
-Error: creating EC2 Instance: MissingInput: No subnets found for the default VPC 'vpc-xxxxx'. Please specify a subnet.
-```
+  - Resolve:
 
-Resolve:
-
-```
-aws ec2 create-default-subnet --availability-zone <Region: e.g us-west-1b>
-```
+    ```
+    aws ec2 create-default-subnet --availability-zone <Region: e.g us-west-1b>
+    ```
 
 
 2. issue 2
 
-Q:
+- Q: "Error: Error pinging Docker server: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
 
-```
-Error: Error pinging Docker server: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
-```
+  - Resolve: 
 
-Resolve: 
+    1. exec `docker context ls`, and look there and copy `DOCKER ENDPOINT` info
 
-1. exec `docker context ls`, and look there and copy `DOCKER ENDPOINT` info
-
-2. copy and paste it in `provider "docker" { host: ""}`
+    2. copy and paste it in `provider "docker" { host: ""}`
 
 
 
